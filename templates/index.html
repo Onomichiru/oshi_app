@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>推し予定表アプリ</title>
+    <style>
+        body {
+            background-color: #fff0f5;
+            font-family: 'メイリオ', sans-serif;
+            text-align: center;
+            padding: 40px;
+        }
+
+        h1 {
+            color: #e75480;
+            margin-bottom: 30px;
+        }
+
+        form {
+            background: #fff;
+            padding: 20px;
+            border-radius: 15px;
+            display: inline-block;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        input, textarea {
+            display: block;
+            margin: 10px auto;
+            padding: 10px;
+            width: 80%;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+        }
+
+        input[type="submit"] {
+            background-color: #ff69b4;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #ff85c1;
+        }
+
+        .schedule-list {
+            margin-top: 40px;
+        }
+
+        .schedule-item {
+            background-color: #ffe4ec;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 10px auto;
+            width: 60%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            text-align: left;
+        }
+
+        .schedule-item h3 {
+            color: #e75480;
+        }
+
+        .schedule-item small {
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎀 推し予定表 🎀</h1>
+    <form method="POST">
+        <input type="date" name="date" required>
+        <input type="text" name="title" placeholder="予定タイトル" required>
+        <input type="time" name="start_time" required>
+        <input type="time" name="end_time" required>
+        <input type="text" name="place" placeholder="場所（例：東京ドーム）" required>
+        <textarea name="note" placeholder="メモ（任意）" rows="3"></textarea>
+        <input type="submit" value="追加する +">
+    </form>
+
+    <div class="schedule-list">
+        {% for s in schedules %}
+        <div class="schedule-item">
+            <small>{{ s.date }} {{s.start_time}}～{{s.end_time}}</small>
+            <h3>{{ s.title }}</h3>
+            <p><strong>場所:</strong> {{s.place}}</p>
+            <p>{{ s.note }}</p>
+            <a href="{{url_for('edit', schedule_id=loop.index0) }}">🖋 編集する</a>
+            <a href="{{ url_for('calendar') }}">📅 カレンダーで見る </a>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

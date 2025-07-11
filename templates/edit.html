@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>予定を編集</title>
+    <style>
+        body {
+            background-color: #fff0f5;
+            font-family: 'メイリオ', sans-serif;
+            text-align: center;
+            padding: 40px;
+        }
+
+        form {
+            background: #fff;
+            padding: 20px;
+            border-radius: 15px;
+            display: inline-block;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        input, textarea {
+            display: block;
+            margin: 10px auto;
+            padding: 10px;
+            width: 80%;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+        }
+
+        input[type="submit"] {
+            background-color: #ff69b4;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #ff85c1;
+        }
+    </style>
+</head>
+<body>
+    <h1>✏️ 予定を編集</h1>
+    <form method="POST">
+        <input type="date" name="date" value="{{ schedule.date }}" required>
+        <input type="time" name="start_time" value="{{ schedule.start_time }}" required>
+        <input type="time" name="end_time" value="{{ schedule.end_time }}" required>
+        <input type="text" name="title" value="{{ schedule.title }}" required>
+        <input type="text" name="place" value="{{ schedule.place }}" required>
+        <textarea name="note" rows="3">{{ schedule.note }}</textarea>
+        <input type="submit" value="更新する 💾">
+    </form>
+</body>
+</html>
